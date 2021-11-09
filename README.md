@@ -50,3 +50,11 @@ Go to System Preferences, Security and Privacy, and click "Allow Anyway".
 Other error:  
 Make sure Mirror is imported, close and reopen Unity, check Player, Scripting define symbols are there, and if you have switched platform too (Unity doesnt always transfer them between platforms).  
 Tested and working with Mirror 35.1.0 - 46 LTS - and 53.
+
+
+# Credits
+
+JesusLuvsYooh  
+cooper  
+Derek S  
+https://github.com/cxxpxr/monke
