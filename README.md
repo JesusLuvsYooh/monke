@@ -43,3 +43,7 @@ Assets/MonkeTransport/Monke.cs(274,9): error CS0227: Unsafe code may only appear
 Mac "libsodium.dylib" cannot be opened because the developer cannot be verified.
 Go to System Preferences, Security and Privacy, and click "Allow Anyway".
 ![UnityDLL](https://user-images.githubusercontent.com/57072365/141006521-7ed4bbe5-8c55-474b-8b2b-3f5ad2011514.jpg)
+
+Other error:
+Make sure Mirror is imported, close and reopen Unity, check Player, Scripting define symbols are there, and there if you switch platform too (Unity doesnt always transfer them between platforms).
+Tested with Mirror 35.1.0  46 LTS  and 53
