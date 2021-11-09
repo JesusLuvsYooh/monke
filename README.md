@@ -28,8 +28,8 @@ If you are using webgl with HTTPS, then the transport will already be encrypted 
 2. Drag Monke into the NetworkManager Transport field.  
 3. Drag the transport you want to use (ie. KCP, Telepathy) into the 'Communication Transport' field in Monke.  
 
-Screenshot demonstration:
+Screenshot demonstration:  
 ![UnityNM1](https://user-images.githubusercontent.com/57072365/140966716-6db91974-1db0-44c0-ac1e-fd13f13e0f2f.jpg)
 
-Tick the "Show Debug Logs" bool, have a player join server/host, and you will see the following in console:
+Tick the "Show Debug Logs" bool, have a player join server/host, and you will see the following in console:  
 ![UnityGameView1](https://user-images.githubusercontent.com/57072365/140966906-d74117ca-b206-4d41-8d10-adacb2143665.jpg)
