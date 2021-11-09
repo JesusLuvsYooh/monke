@@ -9,10 +9,10 @@ Prevent hackers from spying on your monkey business!
 Monke's a step towards an extra layer of security.  
 Encrypts outgoing messages and decrypts incoming messages.  
 Server sends its public key on connect -> client sends his -> everything else after that is encrypted.  
-"if sit outside your house and wireshark your internet, all the data from your game will be random garbage to me"
+"if i sit outside your house and wireshark your internet, all the data from your game will be random garbage to me"
 
 Currently Monke only encrypts everything, which isn't ideal, but can have humorous upsides.  
-A quote from some Genius's  
+A quote from some Geniuses  
 Genius1: "y would u want to encrypt player position"  
 Genius2: "annoy people trying to write bots"  
 Genius2: "its batched anyways so.. 16 bytes per 1kb message (for unreliable) is nothing really"  
