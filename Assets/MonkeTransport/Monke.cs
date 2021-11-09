@@ -9,7 +9,6 @@ public enum OpCodes : byte
     ServerPublicKey = 0,
     ClientPublicKey = 1,
     Data = 2,
-
 }
 
 public class Monke : Transport
@@ -32,7 +31,11 @@ public class Monke : Transport
     private byte[] _nonce;
 
     public override string ServerGetClientAddress(int connectionId) => CommunicationTransport.ServerGetClientAddress(connectionId);
+#if MIRROR_41_0_OR_NEWER
+    public override void ServerDisconnect(int connectionId) => CommunicationTransport.ServerDisconnect(connectionId);
+#else
     public override bool ServerDisconnect(int connectionId) => CommunicationTransport.ServerDisconnect(connectionId);
+#endif
     public override int GetMaxPacketSize(int channelId = 0) => CommunicationTransport.GetMaxPacketSize(channelId);
     public override void ServerEarlyUpdate() => CommunicationTransport.ServerEarlyUpdate();
     public override void ClientEarlyUpdate() => CommunicationTransport.ClientEarlyUpdate();
@@ -81,7 +84,11 @@ public class Monke : Transport
         int pos = 0;
         _clientSendBuffer.WriteByte(ref pos, (byte)OpCodes.ServerPublicKey);
         _clientSendBuffer.WriteBytes(ref pos, _keyPair.PublicKey);
+    #if MIRROR_41_0_OR_NEWER
+        CommunicationTransport.ServerSend(conn, new ArraySegment<byte>(_clientSendBuffer, 0, pos), 0);
+    #else
         CommunicationTransport.ServerSend(conn, 0, new ArraySegment<byte>(_clientSendBuffer, 0, pos));
+    #endif
     }
 
     void OnServerDataReceive(int conn, ArraySegment<byte> data, int channel)
@@ -115,7 +122,7 @@ public class Monke : Transport
                         OnServerDataReceived?.Invoke(conn, new ArraySegment<byte>(_encryptionBuffer), channel);
 
                         if (showDebugLogs)
-                            Debug.Log($"<color=green>MONKE | SERVER DATA | RAW DATA: " + _readBuffer.Length + " DATA DECRYPTED FROM CONN ID: " + conn + " SIZE: " + _encryptionBuffer.Length+"</color>" + 
+                            Debug.Log($"<color=green>MONKE | SERVER DATA | RAW DATA: " + _readBuffer.Length + " DATA DECRYPTED FROM CONN ID: " + conn + " SIZE: " + _encryptionBuffer.Length + "</color>" +
                             " <color=yellow>DELTA: " + (_readBuffer.Length - _encryptionBuffer.Length) + "</color>");
                     }
                     break;
@@ -152,7 +159,11 @@ public class Monke : Transport
                     pos = 0;
                     _clientSendBuffer.WriteByte(ref pos, (byte)OpCodes.ClientPublicKey);
                     _clientSendBuffer.WriteBytes(ref pos, _keyPair.PublicKey);
+                #if MIRROR_41_0_OR_NEWER
+                    CommunicationTransport.ClientSend(new ArraySegment<byte>(_clientSendBuffer, 0, pos), Channels.Reliable);
+                #else
                     CommunicationTransport.ClientSend(Channels.Reliable, new ArraySegment<byte>(_clientSendBuffer, 0, pos));
+                #endif
 
                     if (showDebugLogs)
                         Debug.Log($"<color=green>MONKE | CLIENT RECIEVED SERVER PUBLIC KEY!</color>");
@@ -169,13 +180,13 @@ public class Monke : Transport
 
 
                     if (showDebugLogs)
-                        Debug.Log($"<color=green>MONKE | CLIENT DATA | RAW DATA: " + _readBuffer.Length + " DECRYPTED DATA LENGTH: " + _encryptionBuffer.Length+"</color>" +
+                        Debug.Log($"<color=green>MONKE | CLIENT DATA | RAW DATA: " + _readBuffer.Length + " DECRYPTED DATA LENGTH: " + _encryptionBuffer.Length + "</color>" +
                             " <color=yellow>DELTA: " + (_readBuffer.Length - _encryptionBuffer.Length) + "</color>");
 
                     break;
             }
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             Debug.LogError("Error: " + e);
         }
@@ -187,7 +198,11 @@ public class Monke : Transport
         CommunicationTransport.ClientConnect(address);
     }
 
+#if MIRROR_41_0_OR_NEWER
+    public override void ClientSend(ArraySegment<byte> segment, int channelId)
+#else
     public override void ClientSend(int channelId, ArraySegment<byte> segment)
+#endif
     {
         if (_serverPublicKey != null)
         {
@@ -199,11 +214,19 @@ public class Monke : Transport
 
             _clientSendBuffer.WriteBytes(ref pos, PublicKeyBox.Create(_writeBuffer, _nonce, _keyPair.PrivateKey, _serverPublicKey));
             _clientSendBuffer.WriteBytes(ref pos, _nonce);
+        #if MIRROR_41_0_OR_NEWER
+            CommunicationTransport.ClientSend(new ArraySegment<byte>(_clientSendBuffer, 0, pos), channelId);
+        #else
             CommunicationTransport.ClientSend(channelId, new ArraySegment<byte>(_clientSendBuffer, 0, pos));
+        #endif
         }
     }
 
+#if MIRROR_41_0_OR_NEWER
+    public override void ServerSend(int connectionId, ArraySegment<byte> segment, int channelId)
+#else
     public override void ServerSend(int connectionId, int channelId, ArraySegment<byte> segment)
+#endif
     {
         if (_serverSessions.ContainsKey(connectionId))
         {
@@ -215,7 +238,11 @@ public class Monke : Transport
 
             _clientSendBuffer.WriteBytes(ref pos, PublicKeyBox.Create(_writeBuffer, _nonce, _keyPair.PrivateKey, _serverSessions[connectionId]));
             _clientSendBuffer.WriteBytes(ref pos, _nonce);
-            CommunicationTransport.ServerSend(connectionId, channelId, new ArraySegment<byte>(_clientSendBuffer, 0, pos));
+        #if MIRROR_41_0_OR_NEWER
+               CommunicationTransport.ServerSend(connectionId, new ArraySegment<byte>(_clientSendBuffer, 0, pos), channelId);
+        #else
+               CommunicationTransport.ServerSend(connectionId, channelId, new ArraySegment<byte>(_clientSendBuffer, 0, pos));
+        #endif
         }
     }
 
