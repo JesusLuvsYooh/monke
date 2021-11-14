@@ -1,0 +1,19 @@
+Version Notes
+
+v1.3
+12/11/2021 
+- Added Plugins/Linux/libsodium.so
+
+v1.2
+9/11/2021 
+https://github.com/JesusLuvsYooh/monke
+- Added defines to support more Mirror versions.
+- Updated ReadMe
+- Added Version.txt
+- Removed un-needed files and folders from github
+
+
+v1.0 - 1.1
+15/5/2021 
+https://github.com/cxxpxr/monke
+- Original
