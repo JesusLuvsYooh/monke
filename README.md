@@ -43,12 +43,27 @@ Console error:
 Assets/MonkeTransport/Monke.cs(274,9): error CS0227: Unsafe code may only appear if compiling with /unsafe. Enable "Allow 'unsafe' code" in Player Settings to fix this error.  
 ![UnityAllowUnsafe](https://user-images.githubusercontent.com/57072365/141006450-7c23b9b2-ce2d-4044-9658-f53aaf92b520.jpg)
 
-Mac "libsodium.dylib" cannot be opened because the developer cannot be verified.  
+Mac  
+"libsodium.dylib" cannot be opened because the developer cannot be verified.  
 Go to System Preferences, Security and Privacy, and click "Allow Anyway".  
 ![UnityDLL](https://user-images.githubusercontent.com/57072365/141006521-7ed4bbe5-8c55-474b-8b2b-3f5ad2011514.jpg)
 
+Linux  
+"Unable to preload the following plugins: libsodium.so"  
+"Not supported exception:"  
+"DllNotFoundException: libsodium"  
+
+If your linux server build gives any of the above errors, adjust your Unity settings, and download the right libsodium.so architecture for your linux server.
+The combination of architectures and Unity settings may need to be experimented with, here is what worked for me on AWS EC2 t2.micro.  
+![Screenshot 2021-11-14 at 09 52 45](https://user-images.githubusercontent.com/57072365/141676669-b82018c1-15a3-485c-8145-c18d7d337847.jpg)  
+
+Download, unzip, unzip data.tar.xz, locate "libsodium.so", place this in your Plugins/Linux/ Unity folder or overwrite the libsodium.so in the built files.
+Link for alternative libsodium architectures:  
+https://packages.debian.org/buster/libsodium23
+
+
 Other error:  
-Make sure Mirror is imported, close and reopen Unity, check Player, Scripting define symbols are there, and if you have switched platform too (Unity doesnt always transfer them between platforms).  
+Make sure Mirror is imported, close and reopen Unity, check Player, Scripting define symbols are there, and if you have switched platform too (Unity does not always transfer them between platforms).  
 Tested and working with Mirror 35.1.0 - 46 LTS - and 53.
 
 
