@@ -29,7 +29,7 @@ If you are using webgl with HTTPS, then the transport will already be encrypted 
 1. Add Monke.cs to your NetworkManager object.  
 2. Drag Monke into the NetworkManager Transport field.  
 3. Drag the transport you want to use (ie. KCP, Telepathy) into the 'Communication Transport' field in Monke.  
-4. Check the "Debugging" section (For me, linux only worked with mono Net 4.0, not ilcpp2 net 2.0).
+4. Check the "Debugging" section (For me, linux only worked with Mono Net 4.0, not IL2CPP Net 2.0).
 
 Screenshot demonstration:  
 ![UnityNM1](https://user-images.githubusercontent.com/57072365/140966716-6db91974-1db0-44c0-ac1e-fd13f13e0f2f.jpg)
