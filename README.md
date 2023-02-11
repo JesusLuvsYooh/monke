@@ -65,7 +65,7 @@ https://packages.debian.org/buster/libsodium23
 
 Other error:  
 Make sure Mirror is imported, close and reopen Unity, check Player, Scripting define symbols are there, and if you have switched platform too (Unity does not always transfer them between platforms).  
-Tested and working with Mirror 35.1.0 - 46 LTS - and 53.
+Tested and working with Mirror 35.1.0 - 46 LTS - 53 and 73.1.2
 
 
 # Credits
