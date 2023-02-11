@@ -1,5 +1,9 @@
 Version Notes
 
+v1.4
+11/01/2023
+- Added defines to support latest Mirror (v73.1.2)
+
 v1.3
 12/11/2021 
 - Added Plugins/Linux/libsodium.so
