@@ -1,5 +1,9 @@
 Version Notes
 
+v1.5
+17/08/2023
+- Fixed monke not working with Mirror v66+
+
 v1.4
 11/01/2023
 - Added defines to support latest Mirror (v73.1.2)
