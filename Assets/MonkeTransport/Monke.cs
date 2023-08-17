@@ -202,6 +202,7 @@ public class Monke : Transport
 
     public override void ClientConnect(string address)
     {
+        CommunicationTransport.OnClientConnected = OnClientConnected;
         GenerateInitialKeyPair();
         CommunicationTransport.ClientConnect(address);
     }
