@@ -62,6 +62,7 @@ Download, unzip, unzip data.tar.xz, locate "libsodium.so", place this in your Pl
 Link for alternative libsodium architectures:  
 https://packages.debian.org/buster/libsodium23
 
+Sodium.Core.dll code pulled from https://github.com/ektrah/libsodium-core/ .
 
 Other error:  
 Make sure Mirror is imported, close and reopen Unity, check Player, Scripting define symbols are there, and if you have switched platform too (Unity does not always transfer them between platforms).  
