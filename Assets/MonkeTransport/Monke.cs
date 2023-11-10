@@ -31,7 +31,7 @@ public class Monke : Transport
     private byte[] _nonce;
 
     public override string ServerGetClientAddress(int connectionId) => CommunicationTransport.ServerGetClientAddress(connectionId);
-#if MIRROR_41_0_OR_NEWER || MIRROR_2022_9_OR_NEWER
+#if !MIRROR_41_0_OR_NEWER && !MIRROR_2022_9_OR_NEWER
     public override void ServerDisconnect(int connectionId) => CommunicationTransport.ServerDisconnect(connectionId);
 #else
     public override bool ServerDisconnect(int connectionId) => CommunicationTransport.ServerDisconnect(connectionId);
@@ -64,14 +64,14 @@ public class Monke : Transport
         CommunicationTransport.OnServerConnected = OnServerConnect;
         CommunicationTransport.OnServerDisconnected = OnServerDisconnect;
         CommunicationTransport.OnServerDataReceived = OnServerDataReceive;
-#if MIRROR_2022_9_OR_NEWER
+#if !MIRROR_2022_9_OR_NEWER
         CommunicationTransport.OnServerError = (i, e,reason) => OnServerError?.Invoke(i, e,reason);
 #else
         CommunicationTransport.OnServerError = (i, e) => OnServerError?.Invoke(i, e);
 #endif
         CommunicationTransport.OnClientDataReceived = OnClientDataReceive;
         CommunicationTransport.OnClientDisconnected = () => OnClientDisconnected?.Invoke();
-#if MIRROR_2022_9_OR_NEWER
+#if !MIRROR_2022_9_OR_NEWER
         CommunicationTransport.OnClientError = (e,reason) => OnClientError?.Invoke(e,reason);
 #else
         CommunicationTransport.OnClientError = (e) => OnClientError?.Invoke(e);
@@ -92,7 +92,7 @@ public class Monke : Transport
         int pos = 0;
         _clientSendBuffer.WriteByte(ref pos, (byte)OpCodes.ServerPublicKey);
         _clientSendBuffer.WriteBytes(ref pos, _keyPair.PublicKey);
-#if MIRROR_41_0_OR_NEWER || MIRROR_2022_9_OR_NEWER
+#if !MIRROR_41_0_OR_NEWER && !MIRROR_2022_9_OR_NEWER
         CommunicationTransport.ServerSend(conn, new ArraySegment<byte>(_clientSendBuffer, 0, pos), 0);
 #else
         CommunicationTransport.ServerSend(conn, 0, new ArraySegment<byte>(_clientSendBuffer, 0, pos));
@@ -167,7 +167,7 @@ public class Monke : Transport
                 pos = 0;
                 _clientSendBuffer.WriteByte(ref pos, (byte)OpCodes.ClientPublicKey);
                 _clientSendBuffer.WriteBytes(ref pos, _keyPair.PublicKey);
-#if MIRROR_41_0_OR_NEWER || MIRROR_2022_9_OR_NEWER
+#if !MIRROR_41_0_OR_NEWER || MIRROR_2022_9_OR_NEWER
                 CommunicationTransport.ClientSend(new ArraySegment<byte>(_clientSendBuffer, 0, pos), Channels.Reliable);
 #else
                     CommunicationTransport.ClientSend(Channels.Reliable, new ArraySegment<byte>(_clientSendBuffer, 0, pos));
@@ -207,7 +207,7 @@ public class Monke : Transport
         CommunicationTransport.ClientConnect(address);
     }
 
-#if MIRROR_41_0_OR_NEWER || MIRROR_2022_9_OR_NEWER
+#if !MIRROR_41_0_OR_NEWER && !MIRROR_2022_9_OR_NEWER
     public override void ClientSend(ArraySegment<byte> segment, int channelId)
 #else
     public override void ClientSend(int channelId, ArraySegment<byte> segment)
@@ -223,7 +223,7 @@ public class Monke : Transport
 
             _clientSendBuffer.WriteBytes(ref pos, PublicKeyBox.Create(_writeBuffer, _nonce, _keyPair.PrivateKey, _serverPublicKey));
             _clientSendBuffer.WriteBytes(ref pos, _nonce);
-#if MIRROR_41_0_OR_NEWER || MIRROR_2022_9_OR_NEWER
+#if !MIRROR_41_0_OR_NEWER && !MIRROR_2022_9_OR_NEWER
             CommunicationTransport.ClientSend(new ArraySegment<byte>(_clientSendBuffer, 0, pos), channelId);
 #else
             CommunicationTransport.ClientSend(channelId, new ArraySegment<byte>(_clientSendBuffer, 0, pos));
@@ -231,7 +231,7 @@ public class Monke : Transport
         }
     }
 
-#if MIRROR_41_0_OR_NEWER || MIRROR_2022_9_OR_NEWER
+#if !MIRROR_41_0_OR_NEWER && !MIRROR_2022_9_OR_NEWER
     public override void ServerSend(int connectionId, ArraySegment<byte> segment, int channelId)
 #else
     public override void ServerSend(int connectionId, int channelId, ArraySegment<byte> segment)
@@ -247,7 +247,7 @@ public class Monke : Transport
 
             _clientSendBuffer.WriteBytes(ref pos, PublicKeyBox.Create(_writeBuffer, _nonce, _keyPair.PrivateKey, _serverSessions[connectionId]));
             _clientSendBuffer.WriteBytes(ref pos, _nonce);
-#if MIRROR_41_0_OR_NEWER || MIRROR_2022_9_OR_NEWER
+#if !MIRROR_41_0_OR_NEWER && !MIRROR_2022_9_OR_NEWER
             CommunicationTransport.ServerSend(connectionId, new ArraySegment<byte>(_clientSendBuffer, 0, pos), channelId);
 #else
                CommunicationTransport.ServerSend(connectionId, channelId, new ArraySegment<byte>(_clientSendBuffer, 0, pos));
