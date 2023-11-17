@@ -74,8 +74,8 @@ Other versions likely supported, but it would be silly to test them all! :D
 
 JesusLuvsYooh  
 cooper  
-Derek S
-James
-John Soros
-Mirror team
+Derek S  
+James  
+John Soros  
+Mirror team  
 https://github.com/cxxpxr/monke
