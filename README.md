@@ -76,5 +76,6 @@ JesusLuvsYooh
 cooper  
 Derek S
 James
+John Soros
 Mirror team
 https://github.com/cxxpxr/monke
