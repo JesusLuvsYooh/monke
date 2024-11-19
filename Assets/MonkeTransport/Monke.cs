@@ -36,7 +36,7 @@ public class Monke : Transport
 #else
     public override bool ServerDisconnect(int connectionId) => CommunicationTransport.ServerDisconnect(connectionId);
 #endif
-    public override int GetMaxPacketSize(int channelId = 0) => CommunicationTransport.GetMaxPacketSize(channelId);
+    public override int GetMaxPacketSize(int channelId = 0) => CommunicationTransport.GetMaxPacketSize(channelId) - 64;
     public override void ServerEarlyUpdate() => CommunicationTransport.ServerEarlyUpdate();
     public override void ClientEarlyUpdate() => CommunicationTransport.ClientEarlyUpdate();
     public override void ClientDisconnect() => CommunicationTransport.ClientDisconnect();
